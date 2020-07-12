@@ -63,6 +63,7 @@ namespace SimpleCRUD.Site.Controllers
         }
 
         [HttpPost("{Id:Guid}")]
+        [ActionName("Delete")]
 
         public async Task<IActionResult> Edit(Guid id, Client client)
         {
@@ -89,24 +90,23 @@ namespace SimpleCRUD.Site.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("{Id:Guid}")]
+
+        [HttpGet]
+        [ActionName("Remove")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var client = await nhMapperSession.Get(id);
 
             if (client == null) return RedirectToAction(nameof(Index));
 
-            return View(client);
+            return View("Delete",client);
             
         }
 
-        [HttpPost("{Id:Guid}")]
+        [HttpPost]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(Guid id, Client client)
+        public async Task<IActionResult> DeleteConfirm( Client client)
         {
-
-            if (id != client.Id) return RedirectToAction(nameof(Index));
-
 
             try
             {
@@ -122,7 +122,7 @@ namespace SimpleCRUD.Site.Controllers
             {
                 nhMapperSession.EndTransaction();
             }
-            return View();
+            return View(nameof(Index));
         }
 
 
