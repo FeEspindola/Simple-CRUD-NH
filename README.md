@@ -10,3 +10,6 @@ Usage
 
  Use sql scritps in sql folder.
  
+2 - Open visual studio or use cli tools .NET Core
+ 
+ https://docs.microsoft.com/en-us/dotnet/core/tools/
